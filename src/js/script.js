@@ -52,7 +52,7 @@
     console.log(book);
 
     book.addEventListener('click', function (event){
-      event.preventDefault(); 
+      event.preventDefault();
 
       if(event.target.offsetParent.classList.contains('book__image')){
         for(let imageBook of imageBooks){
