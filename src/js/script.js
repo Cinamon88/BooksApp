@@ -34,17 +34,40 @@
     books: Handlebars.compile(document.querySelector(select.templateOf.books).innerHTML),
   };
 
-  function renderBooks(){
+  function renderBooks (){
     for(let book of dataSource.books){
       const generatedHTML = templates.books(book);
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       const menuContainer = document.querySelector(select.containerOf.booksList);
       menuContainer.appendChild(generatedDOM);
-
     }
   }
 
   const favoriteBooks = [];
+  const filters = [];
+
+  function filterBooks() {
+    const dataBooks = dataSource.books;
+    const bookArray = [];
+
+    for(let dataBook of dataBooks){
+      let shouldBeHidden = false;
+
+      for(let filter of filters){
+        if(!dataBook.details[filter]){
+          console.log('filter', filter);
+          shouldBeHidden = true;
+          bookArray.push(dataBook.id);
+          break;
+        }
+      }
+
+      if(shouldBeHidden == true){
+        const bookImage = document.querySelector('.book__image[data-id="' + dataBook.id + '"]');
+        console.log('bookImage: ', bookImage);  
+      }
+    }
+  }
 
   function initActions(){
     const imageBooks = document.querySelectorAll(('.book a'));
@@ -52,7 +75,7 @@
     console.log(book);
 
     book.addEventListener('click', function (event){
-      event.preventDefault();
+      event.preventDefault(); 
 
       if(event.target.offsetParent.classList.contains('book__image')){
         for(let imageBook of imageBooks){
@@ -71,10 +94,26 @@
         }
       }
     });
+
+    const form = document.querySelector(select.containerOf.filters);
+    form.addEventListener('click', function(event){
+      const filter = event.target;
+      if(filter.tagName == 'INPUT' && filter.type == 'checkbox' && filter.name == 'filter'){
+        if(filter.checked == true){
+          const value = filter.value;
+          filters.push(value);
+        } else {
+          const value = filter.value;
+          const removeValue = filters.indexOf(value);
+          filters.splice(removeValue, 1);
+        }
+        filterBooks();
+      }
+    });
+
   }
-  
-  console.log('favoriteBooks:', favoriteBooks);
 
   renderBooks();
   initActions();
+  
 }
