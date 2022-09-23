@@ -40,8 +40,9 @@
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       const menuContainer = document.querySelector(select.containerOf.booksList);
       menuContainer.appendChild(generatedDOM);
-      
+
     }
   }
+  renderBooks();
 
 }
