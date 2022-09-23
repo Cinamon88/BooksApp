@@ -62,7 +62,11 @@
             if(!favoriteBooks.includes(getID)){
               imageBook.classList.add(select.classActive.favorite);
               favoriteBooks.push(getID);
-            } 
+            } else {
+              imageBook.classList.remove(select.classActive.favorite);
+              const index = favoriteBooks.indexOf(getID);
+              favoriteBooks.splice(index, 1);
+            }
           });
         }
       }
