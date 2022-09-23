@@ -22,11 +22,12 @@
 
     className: {
       bookImage: '.book_image',
+      hidden: 'hidden',
     },
 
     classActive: {
       favorite: 'favorite',
-      hidde: 'hidden',
+      hidden: 'hidden',
     }
   };
 
@@ -53,9 +54,8 @@
     for(let dataBook of dataBooks){
       let shouldBeHidden = false;
 
-      for(let filter of filters){
+      for(const filter of filters){
         if(!dataBook.details[filter]){
-          console.log('filter', filter);
           shouldBeHidden = true;
           bookArray.push(dataBook.id);
           break;
@@ -64,7 +64,11 @@
 
       if(shouldBeHidden == true){
         const bookImage = document.querySelector('.book__image[data-id="' + dataBook.id + '"]');
-        console.log('bookImage: ', bookImage);  
+        bookImage.classList.add(select.className.hidden);
+
+      } else if (shouldBeHidden == false){
+        const bookImage = document.querySelector('.book__image[data-id="' + dataBook.id + '"]');
+        bookImage.classList.remove(select.className.hidden);
       }
     }
   }
