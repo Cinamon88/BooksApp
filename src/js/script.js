@@ -67,7 +67,8 @@
     }
 
     getElement() {
-      
+      const thisBooksList = this;
+      console.log(thisBooksList);
     }
 
     initActions() {
@@ -143,7 +144,7 @@
     determineRatingBgc(rating) {
       const thisBooksList = this;
       console.log(thisBooksList);
-      
+
       let ratingBgc = '';
       if (rating < 6) {
         ratingBgc = 'linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%';
@@ -160,6 +161,6 @@
   }
 
   const app = new BooksList();
-  app();
+  console.log(app);
 
 }
